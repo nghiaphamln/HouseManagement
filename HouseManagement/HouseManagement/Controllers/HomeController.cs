@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using HouseManagement.Models;
+using Models.Entities;
 
 namespace HouseManagement.Controllers;
 
