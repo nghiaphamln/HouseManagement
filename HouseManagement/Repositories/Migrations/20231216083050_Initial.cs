@@ -16,7 +16,7 @@ namespace Repositories.Migrations
                 name: "user",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "serial4", nullable: false)
+                    id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     email = table.Column<string>(type: "varchar(100)", nullable: false),
                     password = table.Column<string>(type: "varchar(200)", nullable: false),

@@ -12,7 +12,7 @@ using Repositories.DbContext;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231216041523_Initial")]
+    [Migration("20231216083050_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -29,7 +29,7 @@ namespace Repositories.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("serial4")
+                        .HasColumnType("bigint")
                         .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));

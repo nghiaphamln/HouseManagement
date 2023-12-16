@@ -7,7 +7,8 @@ namespace Models.Entities;
 public class BaseEntity
 {
     [Key]
-    [Column("id", TypeName = "serial4")] 
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Column("id")] 
     public long Id { get; set; }
 
     [Column("created_user", TypeName = "varchar(100)")]
