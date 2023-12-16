@@ -1,21 +1,16 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using HouseManagement.Models;
-using Models.Entities;
 
 namespace HouseManagement.Controllers;
 
-public class HomeController : Controller
+public class HomeController(
+    ILogger<HomeController> logger
+) : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
-    {
-        _logger = logger;
-    }
-
     public IActionResult Index()
     {
+        logger.LogInformation("Index");
         return View();
     }
 
