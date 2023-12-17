@@ -22,4 +22,8 @@
       <ProjectReference Include="..\Repositories\Repositories.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\css\site.css" />
+    </ItemGroup>
+
 </Project>
