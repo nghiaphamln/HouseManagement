@@ -26,4 +26,8 @@
       <_ContentIncludedByDefault Remove="wwwroot\css\site.css" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\scripts\" />
+    </ItemGroup>
+
 </Project>
