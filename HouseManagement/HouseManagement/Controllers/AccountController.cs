@@ -57,7 +57,8 @@ public class AccountController(
         {
             new(ClaimTypes.Name, validUser.Value.FullName),
             new(ClaimTypes.Email, validUser.Value.Email),
-            new(ClaimTypes.Role, validUser.Value.Role)
+            new(ClaimTypes.Role, validUser.Value.Role),
+            new(ClaimTypes.Thumbprint, validUser.Value.Avatar)
         };
 
         var identity = new ClaimsIdentity(claims, "cookie");

@@ -20,7 +20,7 @@ public class UserEntity : BaseEntity
     public string Phone { get; set; } = Empty;
 
     [Column("avatar", TypeName = "varchar(200)")]
-    public string Avatar { get; set; } = "/images/no-avatar.png";
+    public string Avatar { get; set; } = "/img/avatars/no-avatar.png";
 
     [Column("role", TypeName = "varchar(20)")]
     public string Role { get; set; } = "user";
