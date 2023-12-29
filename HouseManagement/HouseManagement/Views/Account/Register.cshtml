@@ -4,7 +4,8 @@
       dir="ltr"
       data-theme="theme-default"
       data-assets-path="~/"
-      data-template="vertical-menu-template-free">
+      data-template="vertical-menu-template-free"
+      ng-app="HouseManagement">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
@@ -24,7 +25,7 @@
     <script src="~/js/config.js"></script>
 </head>
 <body>
-<div class="container-xxl">
+<div class="container-xxl" ng-controller="RegisterController" ng-init="Init()">
     <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
             <div class="card">
@@ -70,19 +71,28 @@
                         </a>
                     </div>
                     <h4 class="text-center">Đăng ký</h4>
-                    <form id="formAuthentication" class="mb-3" action="#" method="POST">
+                    <form id="formAuthentication" class="mb-3" action="javascript:void(0);">
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="text" class="form-control" id="email" name="email" placeholder="Nhập email" autofocus/>
+                            <div class="row">
+                                <label for="email" class="col-4 form-label">Email</label>
+                                <label for="email" class="col text-end text-danger">{{EmailWarning}}</label>
+                            </div>
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Nhập email" ng-model="Email" ng-change="ValidateEmail()" autofocus/>
                         </div>
                         <div class="mb-3">
-                            <label for="fullname" class="form-label">Họ và tên</label>
-                            <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Nhập số điện thoại"/>
+                            <div class="row">
+                                <label for="fullname" class="col-4 form-label">Họ và tên</label>
+                                <label for="fullname" class="col text-end text-danger">{{FullNameWarning}}</label>
+                            </div>
+                            <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Nhập họ và tên" ng-model="FullName" ng-change="ValidateFullname"/>
                         </div>
                         <div class="mb-3 form-password-toggle">
-                            <label class="form-label" for="password">Mật khẩu</label>
+                            <div class="row">
+                                <label class="col-4 form-label" for="password">Mật khẩu</label>
+                                <label for="password" class="col text-end text-danger">{{PasswordWarning}}</label>
+                            </div>
                             <div class="input-group input-group-merge">
-                                <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password"/>
+                                <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" ng-model="Password" ng-change="ValidatePassword()" aria-describedby="password"/>
                                 <span class="input-group-text cursor-pointer">
                                     <i class="bx bx-hide"></i>
                                 </span>
@@ -90,20 +100,18 @@
                         </div>
                         <div class="mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms"/>
+                                <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" ng-model="IsAcceptTerms" ng-change="DisableSubmit()"/>
                                 <label class="form-check-label" for="terms-conditions">
-                                    Tôi đồng ý 
+                                    Tôi đồng ý
                                     <a href="javascript:void(0);">chính sách và điều khoản bảo mật</a>
                                 </label>
                             </div>
                         </div>
-                        <button class="btn btn-primary d-grid w-100">Đăng ký</button>
+                        <button class="btn btn-primary d-grid w-100" ng-disabled="IsDisable">Đăng ký</button>
                     </form>
                     <p class="text-center">
                         <span>Bạn đã có tài khoản?</span>
-                        <a href="auth-login-basic.html">
-                            <span>Đăng nhập</span>
-                        </a>
+                        <a href="javascript:void(0);" class="fw-bold">Đăng nhập</a>
                     </p>
                 </div>
             </div>
@@ -117,5 +125,10 @@
 <script src="~/vendor/js/menu.js"></script>
 <script src="~/js/main.js"></script>
 <script async defer src="https://buttons.github.io/buttons.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script>
+<script src="~/scripts/common/app.js"></script>
+<script src="~/scripts/utility/validation.js"></script>
+<script src="~/scripts/account/register.js"></script>
+
 </body>
 </html>

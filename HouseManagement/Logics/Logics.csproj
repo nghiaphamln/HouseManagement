@@ -6,4 +6,15 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="ErrorOr" Version="1.3.0" />
+      <PackageReference Include="ServiceStack.Text" Version="8.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Helper\Helper.csproj" />
+      <ProjectReference Include="..\Models\Models.csproj" />
+      <ProjectReference Include="..\Repositories\Repositories.csproj" />
+    </ItemGroup>
+
 </Project>
