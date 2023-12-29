@@ -1,4 +1,4 @@
-app.controller('LoginController', function ($scope, $http, $window) {
+app.controller('LoginController', function ($scope, $http, $window, $location) {
     $scope.Init = function () {
         $scope.Email = "";
         $scope.Password = "";
@@ -25,7 +25,8 @@ app.controller('LoginController', function ($scope, $http, $window) {
             url: "/Account/Login",
             data: {
                 Email: $scope.Email,
-                Password: $scope.Password
+                Password: $scope.Password,
+                RequestPath: new URL($window.location.href).searchParams.get("RequestPath")
             }
         }).then(
             function successCallback(response) {

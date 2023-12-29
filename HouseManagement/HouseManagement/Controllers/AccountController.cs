@@ -12,7 +12,6 @@ using Models.Base;
 namespace HouseManagement.Controllers;
 
 [AllowAnonymous]
-[PreventLoginRedirectAttribute]
 public class AccountController(
     ICorrelationContextAccessor correlationContextAccessor,
     ILogicAccount logicAccount
@@ -20,12 +19,14 @@ public class AccountController(
 {
     private readonly string _trackId = correlationContextAccessor.CorrelationContext.CorrelationId;
 
+    [PreventLoginRedirectAttribute]
     public IActionResult Register()
     {
         return View();
     }
 
     [HttpPost]
+    [PreventLoginRedirectAttribute]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
@@ -33,12 +34,14 @@ public class AccountController(
         return await ExecuteFunctionWithTrackId(() => logicAccount.Register(request), _trackId);
     }
 
+    [PreventLoginRedirectAttribute]
     public IActionResult Login()
     {
         return View();
     }
 
     [HttpPost]
+    [PreventLoginRedirectAttribute]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login([FromBody] RegisterRequest request)
     {
