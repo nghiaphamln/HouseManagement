@@ -58,4 +58,55 @@ public class BaseController : Controller
             });
         }
     }
+
+    protected Task<IActionResult> ToIntegrationResponse<T>(ErrorOr<T> response, string trackId)
+    {
+        try
+        {
+            return Task.FromResult(response.MatchFirst(Ok1, Func));
+
+            IActionResult Ok1(T result) =>
+                Ok(new IntegrationResponse<T>
+                {
+                    Data = result,
+                    Status = HttpStatusCode.OK,
+                    Message = "OK",
+                    TrackId = trackId,
+                });
+
+            IActionResult Func(Error firstError)
+            {
+                var result = firstError.Type switch
+                {
+                    ErrorType.Validation => Ok(new IntegrationResponse
+                    {
+                        Message = firstError.Description,
+                        Status = HttpStatusCode.BadRequest,
+                        TrackId = trackId,
+                    }),
+                    ErrorType.NotFound => Ok(new IntegrationResponse
+                    {
+                        Message = firstError.Description,
+                        Status = HttpStatusCode.NotFound,
+                        TrackId = trackId,
+                    }),
+                    _ => Ok(new IntegrationResponse
+                    {
+                        Message = firstError.Description, Status = HttpStatusCode.InternalServerError,
+                        TrackId = trackId,
+                    })
+                };
+                return result;
+            }
+        }
+        catch (Exception e)
+        {
+            return Task.FromResult<IActionResult>(Ok(new IntegrationResponse<object>
+            {
+                Data = null,
+                Status = HttpStatusCode.InternalServerError,
+                Message = e.Message
+            }));
+        }
+    }
 }

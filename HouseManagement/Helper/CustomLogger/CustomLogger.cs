@@ -18,7 +18,7 @@ public class CustomLogger : ICustomLogger
 
         var stackInfoStr = "";
 
-        if (customLogLevel != CustomLogLevel.Warn)
+        if (customLogLevel != CustomLogLevel.Warn && customLogLevel != CustomLogLevel.Info)
         {
             var st = new StackTrace(1, true);
             var stFrames = st.GetFrames();

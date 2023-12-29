@@ -15,4 +15,5 @@ public class RegisterRequest : BaseRequest
     }
 
     public string Password { get; set; } = string.Empty;
+    public string? RequestPath { get; set; }
 }

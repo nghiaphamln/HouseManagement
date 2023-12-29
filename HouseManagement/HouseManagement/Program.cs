@@ -26,8 +26,8 @@ builder.Services.AddDefaultCorrelationId(options =>
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
-    "HouseManagementSecurityScheme", options =>
+builder.Services.AddAuthentication("HouseManagementSecurityScheme")
+    .AddCookie("HouseManagementSecurityScheme", options =>
     {
         options.AccessDeniedPath = new PathString("/Account/Forbidden");
         options.Cookie = new CookieBuilder

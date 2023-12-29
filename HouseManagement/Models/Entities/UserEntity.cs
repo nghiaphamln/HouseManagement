@@ -22,6 +22,9 @@ public class UserEntity : BaseEntity
     [Column("avatar", TypeName = "varchar(200)")]
     public string Avatar { get; set; } = "/images/no-avatar.png";
 
+    [Column("role", TypeName = "varchar(20)")]
+    public string Role { get; set; } = "user";
+
     [Column("date_of_birth", TypeName = "timestamp")]
     public DateTime? DateOfBirth { get; set; }
 }

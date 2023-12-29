@@ -81,7 +81,7 @@ public class LogicAccount(
         }
     }
 
-    public async Task<ErrorOr<bool>> Login(RegisterRequest request)
+    public async Task<ErrorOr<UserEntity>> Login(RegisterRequest request)
     {
         var stringBuilder = new StringBuilder("LogicAccount.Login ");
         stringBuilder.Append($"Model: {request.ToJson()} ");
@@ -118,7 +118,7 @@ public class LogicAccount(
                 return Error.Validation("Password.Wrong", "Mật khẩu không hợp lệ");
             }
 
-            return true;
+            return userEntity;
         }
         catch (Exception e)
         {
