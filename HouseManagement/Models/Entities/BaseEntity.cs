@@ -15,7 +15,7 @@ public class BaseEntity
     public string CreatedUser { get; set; } = "system";
 
     [Column("created_date", TypeName = "timestamp")]
-    public DateTime CreatedDate { get; set; } = DateTime.Now;
+    public DateTime CreatedDate { get; set; } = DateTime.Now.ToLocalTime();
 
     [Column("updated_user", TypeName = "varchar(100)")]
     public string? UpdatedUser { get; set; }

@@ -23,5 +23,5 @@ public class UserEntity : BaseEntity
     public string Avatar { get; set; } = "/images/no-avatar.png";
 
     [Column("date_of_birth", TypeName = "timestamp")]
-    public DateTime DateOfBirth { get; set; }
+    public DateTime? DateOfBirth { get; set; }
 }

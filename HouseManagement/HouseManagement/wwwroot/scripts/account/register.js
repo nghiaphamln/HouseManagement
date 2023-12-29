@@ -1,4 +1,4 @@
-app.controller('RegisterController', function ($scope, ValidationService) {
+app.controller('RegisterController', function ($scope, $http, $window, ValidationService) {
     $scope.Init = function () {
         $scope.IsAcceptTerms = false;
         $scope.FullName = "";
@@ -65,6 +65,58 @@ app.controller('RegisterController', function ($scope, ValidationService) {
     }
 
     $scope.Register = function () {
+        $http({
+            method: "POST",
+            url: "/Account/Register",
+            data: {
+                FullName: $scope.FullName,
+                Email: $scope.Email,
+                Password: $scope.Password
+            }
+        }).then(
+            function successCallback(response) {
+                if (response.data.status !== 200) {
+                    toastMixin.fire({
+                        position: "top-right",
+                        icon: "error",
+                        title: response.data.message,
+                        showConfirmButton: false,
+                        timer: 1500,
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        },
+                        buttonsStyling: false,
+                    });
+                    return;
+                }
 
+                toastMixin.fire({
+                    position: "top-right",
+                    icon: "success",
+                    title: "Đăng ký thành công",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    },
+                    buttonsStyling: false,
+                }).then(function () {
+                    $window.location.href = "/Account/Login";
+                });
+            },
+            function errorCallback() {
+                toastMixin.fire({
+                    position: "top-right",
+                    icon: "error",
+                    title: "Đã xảy ra lỗi, vui lòng thử lại",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    },
+                    buttonsStyling: false,
+                });
+            }
+        )
     }
 });

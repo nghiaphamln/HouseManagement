@@ -54,7 +54,8 @@ public class UserRepository(
         {
             await using var context = new ApplicationDbContext();
 
-            await context.UserEntities.AddAsync(userEntity);
+            context.Add(userEntity);
+            await context.SaveChangesAsync();
 
             return string.Empty;
         }

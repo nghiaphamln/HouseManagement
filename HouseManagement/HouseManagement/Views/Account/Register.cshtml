@@ -72,6 +72,7 @@
                     </div>
                     <h4 class="text-center">Đăng ký</h4>
                     <form id="formAuthentication" class="mb-3" action="javascript:void(0);">
+                        @Html.AntiForgeryToken()
                         <div class="mb-3">
                             <div class="row">
                                 <label for="email" class="col-4 form-label">Email</label>
@@ -107,7 +108,7 @@
                                 </label>
                             </div>
                         </div>
-                        <button class="btn btn-primary d-grid w-100" ng-disabled="IsDisable">Đăng ký</button>
+                        <button class="btn btn-primary d-grid w-100" ng-disabled="IsDisable" ng-click="Register()">Đăng ký</button>
                     </form>
                     <p class="text-center">
                         <span>Bạn đã có tài khoản?</span>
@@ -126,9 +127,11 @@
 <script src="~/js/main.js"></script>
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script>
+<script src="~/js/sweetalert2.js"></script>
+<script src="~/scripts/common/toast.js"></script>
 <script src="~/scripts/common/app.js"></script>
 <script src="~/scripts/utility/validation.js"></script>
-<script src="~/scripts/account/register.js"></script>
+<script src="~/scripts/account/register.js" asp-append-version="true"></script>
 
 </body>
 </html>
