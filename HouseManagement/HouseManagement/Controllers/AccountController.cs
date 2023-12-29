@@ -12,6 +12,7 @@ using Models.Base;
 namespace HouseManagement.Controllers;
 
 [AllowAnonymous]
+[PreventLoginRedirectAttribute]
 public class AccountController(
     ICorrelationContextAccessor correlationContextAccessor,
     ILogicAccount logicAccount
@@ -59,10 +60,7 @@ public class AccountController(
         var identity = new ClaimsIdentity(claims, "cookie");
         var principal = new ClaimsPrincipal(identity);
         
-        await HttpContext.SignInAsync(
-            scheme: "HouseManagementSecurityScheme",
-            principal: principal
-        );
+        await HttpContext.SignInAsync(scheme: "HouseManagementSecurityScheme", principal: principal);
 
         return Ok(new IntegrationResponse<string>
         {
@@ -71,5 +69,11 @@ public class AccountController(
             Message = "Đăng nhập thành công",
             Data = request.RequestPath ?? "/"
         });
+    }
+    
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync(scheme: "HouseManagementSecurityScheme");
+        return RedirectToAction("Login");
     }
 }
