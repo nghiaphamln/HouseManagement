@@ -29,7 +29,10 @@ builder.Services.AddDefaultCorrelationId(options =>
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDataProtection().UseCryptographicAlgorithms(
+builder.Services
+    .AddDataProtection()
+    .SetApplicationName("HouseManagement")
+    .UseCryptographicAlgorithms(
     new AuthenticatedEncryptorConfiguration
     {
         EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
