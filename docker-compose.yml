@@ -1,11 +1,13 @@
 version: '3'
 services:
-  motel-dotnet:
+  house-management:
     build: ./HouseManagement
-    container_name: motel-dotnet
+    container_name: house-management
     restart: unless-stopped
     ports:
       - '80:80'
+    volumes:
+      - keys:/root/.aspnet/DataProtection-Keys
     environment:
       - ASPNETCORE_URLS=http://+
 
