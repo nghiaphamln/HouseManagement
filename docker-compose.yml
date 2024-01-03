@@ -6,17 +6,8 @@ services:
     restart: unless-stopped
     ports:
       - '80:80'
-      - '443:443'
-    volumes:
-      - ./contoso.com.crt:/https/server.crt:ro
-      - ./contoso.com.key:/https/server.key:ro
-      - ./contoso.com.pfx:/https/server.pfx
-      - keys:/root/.aspnet/DataProtection-Keys
     environment:
-      - ASPNETCORE_URLS=https://+;http://+
-      - ASPNETCORE_HTTPS_PORT=443
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/server.pfx
+      - ASPNETCORE_URLS=http://+
 
 volumes:
   keys:
