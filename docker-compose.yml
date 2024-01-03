@@ -12,8 +12,6 @@ services:
       - ./contoso.com.key:/https/server.key:ro
       - ./contoso.com.pfx:/https/server.pfx
       - keys:/root/.aspnet/DataProtection-Keys
-    env_file:
-    - config.yml
     environment:
       - ASPNETCORE_URLS=https://+;http://+
       - ASPNETCORE_HTTPS_PORT=443
