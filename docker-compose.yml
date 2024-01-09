@@ -11,6 +11,29 @@ services:
       - keys:/root/.aspnet/DataProtection-Keys
     environment:
       - ASPNETCORE_HTTP_PORTS=80
+    env_file:
+      - config.yml
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres-db
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-Abcd@1234}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
 
 volumes:
   keys:
+  postgres:
+
+networks:
+  postgres:
