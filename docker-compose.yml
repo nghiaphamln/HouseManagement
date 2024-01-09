@@ -13,8 +13,6 @@ services:
       - ASPNETCORE_HTTP_PORTS=80
     env_file:
       - ../config.yml
-    networks: 
-      - postgres
     depends_on:
       - postgres
 
@@ -25,17 +23,13 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-Abcd@1234}
       PGDATA: /data/postgres
+      TZ: "Asia/Ho_Chi_Minh"
     volumes:
       - postgres:/data/postgres
     ports:
       - "5432:5432"
-    networks: 
-      - postgres
     restart: unless-stopped
 
 volumes:
   keys:
-  postgres:
-
-networks:
   postgres:
