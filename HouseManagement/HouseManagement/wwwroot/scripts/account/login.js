@@ -1,4 +1,4 @@
-app.controller('LoginController', function ($scope, $http, $window, $location) {
+app.controller('LoginController', function ($scope, $http, $window, $rootScope) {
     $scope.Init = function () {
         $scope.Email = "";
         $scope.Password = "";
@@ -20,6 +20,7 @@ app.controller('LoginController', function ($scope, $http, $window, $location) {
     }
 
     $scope.Login = function () {
+        $rootScope.IsLoading = true;
         $http({
             method: "POST",
             url: "/Account/Login",
@@ -30,6 +31,7 @@ app.controller('LoginController', function ($scope, $http, $window, $location) {
             }
         }).then(
             function successCallback(response) {
+                $rootScope.IsLoading = false;
                 if (response.data.status !== 200) {
                     toastMixin.fire({
                         position: "top-right",
@@ -48,6 +50,7 @@ app.controller('LoginController', function ($scope, $http, $window, $location) {
                 $window.location.href = response.data.data;
             },
             function errorCallback() {
+                $rootScope.IsLoading = false;
                 toastMixin.fire({
                     position: "top-right",
                     icon: "error",

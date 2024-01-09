@@ -1,4 +1,4 @@
-app.controller('RegisterController', function ($scope, $http, $window, ValidationService) {
+app.controller('RegisterController', function ($scope, $http, $window, ValidationService, $rootScope) {
     $scope.Init = function () {
         $scope.IsAcceptTerms = false;
         $scope.FullName = "";
@@ -65,6 +65,7 @@ app.controller('RegisterController', function ($scope, $http, $window, Validatio
     }
 
     $scope.Register = function () {
+        $rootScope.IsLoading = true;
         $http({
             method: "POST",
             url: "/Account/Register",
@@ -75,6 +76,7 @@ app.controller('RegisterController', function ($scope, $http, $window, Validatio
             }
         }).then(
             function successCallback(response) {
+                $rootScope.IsLoading = false;
                 if (response.data.status !== 200) {
                     toastMixin.fire({
                         position: "top-right",
@@ -105,6 +107,7 @@ app.controller('RegisterController', function ($scope, $http, $window, Validatio
                 });
             },
             function errorCallback() {
+                $rootScope.IsLoading = false;
                 toastMixin.fire({
                     position: "top-right",
                     icon: "error",
