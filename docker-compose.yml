@@ -22,8 +22,8 @@ services:
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - PGDATA: /data/postgres
-      - TZ: "Asia/Ho_Chi_Minh"
+      - PGDATA=/data/postgres
+      - TZ="Asia/Ho_Chi_Minh"
     volumes:
       - postgres:/data/postgres
     ports:
