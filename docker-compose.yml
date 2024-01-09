@@ -19,11 +19,12 @@ services:
   postgres:
     container_name: postgres-db
     image: postgres
+    config:
+      timezone: "Asia/Ho_Chi_Minh"
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-Abcd@1234}
       PGDATA: /data/postgres
-      TZ: "Asia/Ho_Chi_Minh"
     volumes:
       - postgres:/data/postgres
     ports:
