@@ -20,10 +20,12 @@ services:
     container_name: postgres-db
     image: postgres
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-Abcd@1234}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       PGDATA: /data/postgres
       TZ: "Asia/Ho_Chi_Minh"
+    env_file:
+      - ../.env
     volumes:
       - postgres:/data/postgres
     ports:
