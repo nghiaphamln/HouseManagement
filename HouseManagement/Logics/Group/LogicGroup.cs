@@ -53,7 +53,8 @@ public class LogicGroup(
             {
                 GroupName = request.GroupName,
                 LimitMember = request.LimitMember,
-                Note = request.Note
+                Note = request.Note,
+                CreatedUser = request.CreatedUser
             };
 
             (var groupId, error) = await groupRepository.Insert(groupEntity, request.TrackId);
