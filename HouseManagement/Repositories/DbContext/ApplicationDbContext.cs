@@ -7,6 +7,8 @@ namespace Repositories.DbContext;
 public class ApplicationDbContext : Microsoft.EntityFrameworkCore.DbContext
 {
     public DbSet<UserEntity> UserEntities { get; set; } = null!;
+    public DbSet<GroupEntity> GroupEntities { get; set; } = null!;
+    public DbSet<GroupDetailEntity> GroupDetailEntities { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -22,5 +24,7 @@ public class ApplicationDbContext : Microsoft.EntityFrameworkCore.DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<UserEntity>();
+        modelBuilder.Entity<GroupEntity>();
+        modelBuilder.Entity<GroupDetailEntity>();
     }
 }

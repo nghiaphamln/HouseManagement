@@ -56,27 +56,6 @@ builder.Services.AddAuthentication("HouseManagementSecurityScheme")
             SameSite = SameSiteMode.Lax,
             SecurePolicy = CookieSecurePolicy.SameAsRequest
         };
-        options.Events = new CookieAuthenticationEvents
-        {
-            OnSignedIn = context =>
-            {
-                Console.WriteLine("{0} - {1}: {2}", DateTime.Now,
-                    "OnSignedIn", context.Principal?.Identity?.Name);
-                return Task.CompletedTask;
-            },
-            OnSigningOut = context =>
-            {
-                Console.WriteLine("{0} - {1}: {2}", DateTime.Now,
-                    "OnSigningOut", context.HttpContext.User.Identity?.Name);
-                return Task.CompletedTask;
-            },
-            OnValidatePrincipal = context =>
-            {
-                Console.WriteLine("{0} - {1}: {2}", DateTime.Now,
-                    "OnValidatePrincipal", context.Principal?.Identity?.Name);
-                return Task.CompletedTask;
-            }
-        };
         options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
         options.LoginPath = new PathString("/Account/Login");
         options.ReturnUrlParameter = "RequestPath";

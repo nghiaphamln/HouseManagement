@@ -67,7 +67,13 @@
         <li class="menu-item @(ViewBag.Function == "Home/Index" ? "active" : "")">
             <a asp-controller="Home" asp-action="Index" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Trang chủ</div>
+                <div data-i18n="Home">Trang chủ</div>
+            </a>
+        </li>
+        <li class="menu-item @(ViewBag.Function == "Group/Index" ? "active" : "")">
+            <a asp-controller="Group" asp-action="Index" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Home">Nhóm</div>
             </a>
         </li>
     </ul>

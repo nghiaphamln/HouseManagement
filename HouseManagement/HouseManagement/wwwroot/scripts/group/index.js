@@ -1,34 +1,18 @@
-app.controller('LoginController', function ($scope, $http, $window, $rootScope) {
+﻿app.controller('GroupIndexController', function ($scope, $http, $window, $rootScope) {
     $scope.Init = function () {
-        $scope.Email = "";
-        $scope.Password = "";
-        $scope.IsDisable = true;
+        $scope.CreateGroupModel = {
+            GroupName: "",
+            LimitMember: null,
+            Note: null
+        };
     }
-
-    $scope.DisableSubmit = function () {
-        if (!$scope.Email) {
-            $scope.IsDisable = true;
-            return;
-        }
-
-        if (!$scope.Password) {
-            $scope.IsDisable = true;
-            return;
-        }
-        
-        $scope.IsDisable = false;
-    }
-
-    $scope.Login = function () {
+    
+    $scope.CreateGroup = function () {
         $rootScope.IsLoading = true;
         $http({
             method: "POST",
-            url: "/Account/Login",
-            data: {
-                Email: $scope.Email,
-                Password: $scope.Password,
-                RequestPath: new URL($window.location.href).searchParams.get("RequestPath")
-            }
+            url: "/Group/Create",
+            data: JSON.stringify($scope.CreateGroupModel)
         }).then(
             function successCallback(response) {
                 $rootScope.IsLoading = false;
@@ -47,7 +31,19 @@ app.controller('LoginController', function ($scope, $http, $window, $rootScope) 
                     return;
                 }
 
-                $window.location.href = response.data.data;
+                toastMixin.fire({
+                    position: "top-right",
+                    icon: "success",
+                    title: "Tạo mới thành công",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    },
+                    buttonsStyling: false,
+                }).then(function () {
+                    $window.location.reload();
+                });
             },
             function errorCallback() {
                 $rootScope.IsLoading = false;
