@@ -52,7 +52,7 @@ public class LogicGroup(
             groupEntity = new GroupEntity
             {
                 GroupName = request.GroupName,
-                MemberLimit = request.LimitMember,
+                LimitMember = request.LimitMember,
                 Note = request.Note
             };
 

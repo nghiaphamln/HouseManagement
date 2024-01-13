@@ -97,9 +97,9 @@ namespace Repositories.Migrations
                         .HasColumnType("timestamp")
                         .HasColumnName("last_updated");
 
-                    b.Property<int?>("MemberLimit")
+                    b.Property<int?>("LimitMember")
                         .HasColumnType("integer")
-                        .HasColumnName("member_limit");
+                        .HasColumnName("limit_member");
 
                     b.Property<string>("Note")
                         .HasColumnType("varchar(200)")

@@ -12,7 +12,7 @@ using Repositories.DbContext;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240109172321_Initial")]
+    [Migration("20240113170635_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -100,9 +100,9 @@ namespace Repositories.Migrations
                         .HasColumnType("timestamp")
                         .HasColumnName("last_updated");
 
-                    b.Property<int?>("MemberLimit")
+                    b.Property<int?>("LimitMember")
                         .HasColumnType("integer")
-                        .HasColumnName("member_limit");
+                        .HasColumnName("limit_member");
 
                     b.Property<string>("Note")
                         .HasColumnType("varchar(200)")
