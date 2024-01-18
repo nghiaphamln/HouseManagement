@@ -4,6 +4,8 @@ using HouseManagement.Base;
 using Logics.Group;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Models.Base;
+using Models.Entities;
 using Models.Group;
 
 namespace HouseManagement.Controllers;
@@ -18,8 +20,13 @@ public class GroupController(
     
     public async Task<IActionResult> Index()
     {
-        var defaultData = (await logicGroup.GetForPaging(new GroupGetForPagingRequest(), _trackId)).Value;
-        return View(defaultData);
+        var searchData = (await logicGroup.GetForPaging(new GroupGetForPagingRequest(), _trackId)).Value;
+        var pager = new PagerSearch<GroupEntity>(searchData.TotalRecord, 5, 1)
+        {
+            Results = searchData.Data,
+            Page = 1
+        };
+        return View(pager);
     }
 
     [HttpPost]

@@ -1,14 +1,13 @@
-﻿@model Models.Base.BasePagingResponse<List<Models.Entities.GroupEntity>>
-
+﻿@model Models.Base.PagerSearch<Models.Entities.GroupEntity>
 <tbody class="table-border-bottom-0">
-@foreach (var group in Model.Data)
+@foreach (var group in Model.Results)
 {
     <tr>
         <td>
             <i class="fab fa-angular fa-lg text-danger"></i> <strong>@group.GroupName</strong>
         </td>
         <td class="text-center">1</td>
-        <td>
+        <td class="text-center">
             @if (group.IsDeleted is false)
             {
                 <span class="badge bg-label-success me-1">Đang hoạt động</span>
@@ -18,10 +17,10 @@
                 <span class="badge bg-label-warning me-1">Đã xóa</span>
             }
         </td>
-        <td>
+        <td class="text-center">
             <span class="badge bg-label-primary me-1">@group.CreatedUser.Split("@").FirstOrDefault()</span>
         </td>
-        <td>
+        <td class="text-center">
             <button type="button" class="btn text-primary">
                 <i class="bx bx-edit"></i>
             </button>
