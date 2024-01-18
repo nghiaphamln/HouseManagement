@@ -17,14 +17,19 @@ public class GroupController(
 ) : BaseController
 {
     private readonly string _trackId = correlationContextAccessor.CorrelationContext.CorrelationId;
-    
-    public async Task<IActionResult> Index()
+    private const int DefaultPageSize = 5;
+
+    public async Task<IActionResult> Index(int pageNumber = 1)
     {
-        var searchData = (await logicGroup.GetForPaging(new GroupGetForPagingRequest(), _trackId)).Value;
-        var pager = new PagerSearch<GroupEntity>(searchData.TotalRecord, 5, 1)
+        var searchData = (await logicGroup.GetForPaging(new GroupGetForPagingRequest
+        {
+            PageSize = DefaultPageSize,
+            PageNumber = pageNumber
+        }, _trackId)).Value;
+        var pager = new PagerSearch<GroupEntity>(searchData.TotalRecord, DefaultPageSize, pageNumber)
         {
             Results = searchData.Data,
-            Page = 1
+            Page = pageNumber
         };
         return View(pager);
     }
@@ -37,7 +42,7 @@ public class GroupController(
         request.CreatedUser = User.FindFirstValue(ClaimTypes.Email)!;
         return await ExecuteFunctionWithTrackId(() => logicGroup.Create(request), _trackId);
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> GetForPaging([FromBody] GroupGetForPagingRequest request)
     {
