@@ -9,5 +9,5 @@ public interface ILogicGroup
 {
     Task<ErrorOr<bool>> Create(CreateGroupRequest request);
 
-    Task<ErrorOr<BasePagingResponse<List<GroupEntity>>>> GetForPaging(GroupGetForPagingRequest request, string trackId);
+    Task<ErrorOr<PagerSearch<GroupEntity>>> GetForPaging(GroupGetForPagingRequest request, string trackId);
 }

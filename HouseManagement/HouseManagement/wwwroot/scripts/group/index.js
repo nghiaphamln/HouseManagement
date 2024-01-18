@@ -12,19 +12,21 @@
         };
 
         $scope.DisableCreateButton();
+        $scope.Pager = {};
+        $scope.GetGroup(1);
     }
 
     $scope.DisableCreateButton = function () {
-        if (!$scope.CreateGroupModel.GroupName || 
+        if (!$scope.CreateGroupModel.GroupName ||
             $scope.CreateGroupModel.GroupName.length < 3 ||
             $scope.CreateGroupModel.GroupName.length > 50) {
             $scope.IsDisableCreateButton = true;
             return;
         }
-        
+
         $scope.IsDisableCreateButton = false;
     }
-    
+
     $scope.ValidateGroupName = function () {
         if (!$scope.CreateGroupModel.GroupName) {
             $scope.ValidateGroupModel.GroupName = "Không được bỏ trống";
@@ -46,7 +48,7 @@
 
         $scope.DisableCreateButton();
     }
-    
+
     $scope.CreateGroup = function () {
         $rootScope.IsLoading = true;
         $http({
@@ -101,14 +103,13 @@
             }
         );
     }
-    
+
     $scope.GetGroup = function (pageNumber) {
         $rootScope.IsLoading = true;
         $http({
             method: "POST",
             url: "/Group/GetForPaging",
             data: JSON.stringify({
-                PageSize: 20,
                 PageNumber: pageNumber
             })
         }).then(
@@ -128,9 +129,11 @@
                     });
                     return;
                 }
-                
-                $scope.Data = response.data.data;
-                $scope.TotalRecord = response.data.totalRecord;
+
+                $scope.Pager = response.data.data;
+                $scope.Pager['fromPage'] = $scope.Pager['page'] - $scope.Pager['pageSize'] >= 1 ? $scope.Pager['page'] - $scope.Pager['pageSize'] : 1;
+                $scope.Pager['toPage'] = $scope.Pager['fromPage'] + $scope.Pager['pageSize'] <= $scope.Pager['totalPage'] ? $scope.Pager['fromPage'] + $scope.Pager['pageSize'] : $scope.Pager['totalPage'];
+                console.log($scope.Pager);
             },
             function errorCallback() {
                 $rootScope.IsLoading = false;
@@ -148,4 +151,13 @@
             }
         );
     }
+
+    $scope.Range = function(min, max, step) {
+        step = step || 1;
+        let input = [];
+        for (let i = min; i <= max; i += step) {
+            input.push(i);
+        }
+        return input;
+    };
 });

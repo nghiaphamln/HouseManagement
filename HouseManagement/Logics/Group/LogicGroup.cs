@@ -97,7 +97,7 @@ public class LogicGroup(
         }
     }
 
-    public async Task<ErrorOr<BasePagingResponse<List<GroupEntity>>>> GetForPaging(GroupGetForPagingRequest request,
+    public async Task<ErrorOr<PagerSearch<GroupEntity>>> GetForPaging(GroupGetForPagingRequest request,
         string trackId
     )
     {
@@ -114,10 +114,10 @@ public class LogicGroup(
                 return Error.Unexpected("GetGroup.Error", error);
             }
 
-            return new BasePagingResponse<List<GroupEntity>>
+            return new PagerSearch<GroupEntity>(totalRecord, request.PageSize, request.PageNumber)
             {
-                TotalRecord = totalRecord,
-                Data = groups
+                Results = groups,
+                Page = request.PageNumber
             };
         }
         catch (Exception e)

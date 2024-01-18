@@ -7,4 +7,5 @@ public class BasePagingRequest
     public DateTime? ToDate { get; set; }
     public int PageSize { get; set; } = 5;
     public int PageNumber { get; set; } = 1;
+    public string? CreatedUser { get; set; }
 }
