@@ -9,6 +9,7 @@ using Models.Type;
 using ServiceStack;
 using ErrorOr;
 using Helper;
+using Models.Base;
 using Repositories.Group;
 using Repositories.GroupDetail;
 
@@ -43,7 +44,7 @@ public class LogicGroup(
                 logLevel = CustomLogLevel.Error;
                 return Error.Unexpected("GetByGroupName.Error", error);
             }
-            
+
             if (groupEntity is not null)
             {
                 return Error.Validation("GetByGroupName.IsExist", "Tên nhóm đã tồn tại");
@@ -92,6 +93,43 @@ public class LogicGroup(
         {
             stopWatch.Stop();
             customLogger.WriteCustomLog(logger, request.TrackId, stringBuilder.ToString(), logLevel,
+                stopWatch.ElapsedMilliseconds);
+        }
+    }
+
+    public async Task<ErrorOr<BasePagingResponse<List<GroupEntity>>>> GetForPaging(GroupGetForPagingRequest request,
+        string trackId
+    )
+    {
+        var stringBuilder = new StringBuilder($"LogicGroup.GetForPaging, Request: {request.ToJson()} ");
+        var logLevel = CustomLogLevel.Info;
+        var stopWatch = Stopwatch.StartNew();
+        try
+        {
+            var (groups, totalRecord, error) = await groupRepository.GetForPaging(request, trackId);
+            if (error.IsNotEmpty())
+            {
+                stringBuilder.Append($"GetGroupWithError: {error} ");
+                logLevel = CustomLogLevel.Error;
+                return Error.Unexpected("GetGroup.Error", error);
+            }
+
+            return new BasePagingResponse<List<GroupEntity>>
+            {
+                TotalRecord = totalRecord,
+                Data = groups
+            };
+        }
+        catch (Exception e)
+        {
+            logLevel = CustomLogLevel.Critical;
+            stringBuilder.Append($"Exception: {e.Message}, StackTrace:{e.StackTrace} ");
+            return Error.Unexpected("Unexpected", e.Message);
+        }
+        finally
+        {
+            stopWatch.Stop();
+            customLogger.WriteCustomLog(logger, trackId, stringBuilder.ToString(), logLevel,
                 stopWatch.ElapsedMilliseconds);
         }
     }

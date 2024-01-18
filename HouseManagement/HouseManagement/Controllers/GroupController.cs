@@ -16,9 +16,10 @@ public class GroupController(
 {
     private readonly string _trackId = correlationContextAccessor.CorrelationContext.CorrelationId;
     
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var defaultData = (await logicGroup.GetForPaging(new GroupGetForPagingRequest(), _trackId)).Value;
+        return View(defaultData);
     }
 
     [HttpPost]
@@ -28,5 +29,11 @@ public class GroupController(
         request.TrackId = _trackId;
         request.CreatedUser = User.FindFirstValue(ClaimTypes.Email)!;
         return await ExecuteFunctionWithTrackId(() => logicGroup.Create(request), _trackId);
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> GetForPaging([FromBody] GroupGetForPagingRequest request)
+    {
+        return await ExecuteFunctionWithTrackId(() => logicGroup.GetForPaging(request, _trackId), _trackId);
     }
 }
