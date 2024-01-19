@@ -35,7 +35,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="app-brand justify-content-center">
-                        <a href="index.html" class="app-brand-link gap-2">
+                        <a asp-controller="Home" asp-action="Index" class="app-brand-link gap-2">
                             <span class="app-brand-logo demo">
                                 <svg width="25" viewBox="0 0 25 42" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <defs>
@@ -80,21 +80,21 @@
                         <div class="mb-3">
                             <div class="row">
                                 <label for="email" class="col-4 form-label">Email</label>
-                                <label for="email" class="col text-end text-danger">{{EmailWarning}}</label>
+                                <label for="email" class="col text-end text-danger" ng-bind="EmailWarning"></label>
                             </div>
                             <input type="text" class="form-control" id="email" name="email" placeholder="Nhập email" ng-model="Email" ng-change="ValidateEmail()" autofocus/>
                         </div>
                         <div class="mb-3">
                             <div class="row">
                                 <label for="fullname" class="col-4 form-label">Họ và tên</label>
-                                <label for="fullname" class="col text-end text-danger">{{FullNameWarning}}</label>
+                                <label for="fullname" class="col text-end text-danger" ng-bind="FullNameWarning"></label>
                             </div>
                             <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Nhập họ và tên" ng-model="FullName" ng-change="ValidateFullname()"/>
                         </div>
                         <div class="mb-3 form-password-toggle">
                             <div class="row">
                                 <label class="col-4 form-label" for="password">Mật khẩu</label>
-                                <label for="password" class="col text-end text-danger">{{PasswordWarning}}</label>
+                                <label for="password" class="col text-end text-danger" ng-bind="PasswordWarning"></label>
                             </div>
                             <div class="input-group input-group-merge">
                                 <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" ng-model="Password" ng-change="ValidatePassword()" aria-describedby="password"/>
