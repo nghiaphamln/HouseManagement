@@ -90,7 +90,8 @@ public class GroupRepository(
 
             var queryGetAllByFilter = context.GroupEntities
                 .Where(e => (request.FromDate == null || e.CreatedDate.Date >= request.FromDate.Value.Date) &&
-                            (request.ToDate == null || e.CreatedDate.Date <= request.ToDate.Value.Date));
+                            (request.ToDate == null || e.CreatedDate.Date <= request.ToDate.Value.Date) &&
+                            (request.CreatedUser == null || e.CreatedUser == request.CreatedUser));
 
             var totalRecord = await queryGetAllByFilter.CountAsync();
             var result = await queryGetAllByFilter
