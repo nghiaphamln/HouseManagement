@@ -22,8 +22,8 @@ public class PagerSearch<T> where T : class
         TotalRecord = totalRecords;
         DisplayFrom = (pageNumber - 1) * pageSize + 1;
         DisplayTo = pageNumber * pageSize > TotalRecord ? TotalRecord : pageNumber * pageSize;
-        FromPage = Page - pageSize >= 1 ? Page - pageSize : 1;
-        ToPage = FromPage + pageSize <= TotalPage ? FromPage + pageSize : TotalPage;
+        FromPage = Page - 5 >= 1 ? Page - 5 : 1;
+        ToPage = FromPage + 5 <= TotalPage ? FromPage + 5 : TotalPage;
         PageRange = Enumerable.Range(FromPage, ToPage - FromPage + 1).ToList();
     }
 }

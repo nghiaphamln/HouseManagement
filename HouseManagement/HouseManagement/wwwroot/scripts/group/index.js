@@ -28,20 +28,21 @@
     }
 
     $scope.ValidateGroupName = function () {
+        $scope.ValidateGroupModel.GroupName = '';
         if (!$scope.CreateGroupModel.GroupName) {
-            $scope.ValidateGroupModel.GroupName = "Không được bỏ trống";
+            $scope.ValidateGroupModel.GroupName = 'Không được bỏ trống';
             $scope.DisableCreateButton();
             return;
         }
 
         if ($scope.CreateGroupModel.GroupName.length < 3) {
-            $scope.ValidateGroupModel.GroupName = "Phải hơn 3 ký tự";
+            $scope.ValidateGroupModel.GroupName = 'Phải hơn 3 ký tự';
             $scope.DisableCreateButton();
             return;
         }
 
         if ($scope.CreateGroupModel.GroupName.length > 50) {
-            $scope.ValidateGroupModel.GroupName = "Không được quá 50 ký tự";
+            $scope.ValidateGroupModel.GroupName = 'Không được quá 50 ký tự';
             $scope.DisableCreateButton();
             return;
         }
@@ -56,13 +57,13 @@
             function (response) {
                 if (response.status !== 200) {
                     toastMixin.fire({
-                        position: "top-right",
-                        icon: "error",
+                        position: 'top-right',
+                        icon: 'error',
                         title: response.message,
                         showConfirmButton: false,
                         timer: 1500,
                         customClass: {
-                            confirmButton: "btn btn-primary"
+                            confirmButton: 'btn btn-primary'
                         },
                         buttonsStyling: false,
                     });
@@ -70,13 +71,13 @@
                 }
 
                 toastMixin.fire({
-                    position: "top-right",
-                    icon: "success",
-                    title: "Tạo mới thành công",
+                    position: 'top-right',
+                    icon: 'success',
+                    title: 'Tạo mới thành công',
                     showConfirmButton: false,
                     timer: 1500,
                     customClass: {
-                        confirmButton: "btn btn-primary"
+                        confirmButton: 'btn btn-primary'
                     },
                     buttonsStyling: false,
                 }).then(function () {
@@ -94,13 +95,13 @@
             function (response) {
                 if (response.status !== 200) {
                     toastMixin.fire({
-                        position: "top-right",
-                        icon: "error",
+                        position: 'top-right',
+                        icon: 'error',
                         title: response.message,
                         showConfirmButton: false,
                         timer: 1500,
                         customClass: {
-                            confirmButton: "btn btn-primary"
+                            confirmButton: 'btn btn-primary'
                         },
                         buttonsStyling: false,
                     });

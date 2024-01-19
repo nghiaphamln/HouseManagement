@@ -33,7 +33,7 @@
                                     <div class="mb-3">
                                         <div class="row">
                                             <label for="group-name" class="col-5 form-label">Tên nhóm <span class="text-danger">*</span></label>
-                                            <small for="group-name" class="col text-end text-danger">{{ValidateGroupModel.GroupName}}</small>
+                                            <small for="group-name" class="col text-end text-danger" ng-bind="ValidateGroupModel['GroupName']"></small>
                                         </div>
                                         <input type="text" id="group-name" class="form-control" placeholder="Tên nhóm" ng-model="CreateGroupModel.GroupName" ng-change="ValidateGroupName()"/>
                                     </div>
@@ -44,7 +44,7 @@
                                     <div class="mb-3">
                                         <div class="row">
                                             <label for="note" class="col-4 form-label">Ghi chú</label>
-                                            <label for="note" class="col form-label">{{ValidateGroupModel.Note}}</label>
+                                            <small for="note" class="col form-label" ng-bind="ValidateGroupModel['Note']"></small>
                                         </div>
                                         <textarea type="text" id="note" class="form-control" placeholder="Ghi chú" ng-model="CreateGroupModel.Note"></textarea>
                                     </div>
@@ -95,28 +95,7 @@
                     </tr>
                 </table>
             </div>
-
-
-            <div class="p-3">
-                <i>Đang hiển thị <b>{{Pager['displayFrom']}}</b> - <b>{{Pager['displayTo']}}</b> của <b>{{Pager['totalRecord']}}</b></i>
-                <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li class="page-item prev {{Pager['page'] === 1 ? 'disabled' : ''}}">
-                            <a class="page-link" href="javascript:void(0);">
-                                <i class="tf-icon bx bx-chevrons-left" ng-click="GetGroup(Pager['page']-1)"></i>
-                            </a>
-                        </li>
-                        <li ng-repeat="page in Pager['pageRange']" class="page-item {{page === Pager['page'] ? 'active' : ''}}">
-                            <a class="page-link" ng-click="GetGroup(page)">{{page}}</a>
-                        </li>
-                        <li class="page-item next {{Pager['page'] === Pager['totalPage'] ? 'disabled' : ''}}">
-                            <a class="page-link" href="javascript:void(0);">
-                                <i class="tf-icon bx bx-chevrons-right" ng-click="GetGroup(Pager['page']+1)"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+            <pagination-directive pager="Pager" on-page-change="GetGroup(page)"></pagination-directive>
         </div>
     </div>
 </div>
@@ -125,5 +104,6 @@
 @section Scripts
 {
     <script src="~/scripts/utility/http.js" asp-append-version="true"></script>
+    <script src="~/scripts/directive/pagination.js" asp-append-version="true"></script>
     <script src="~/scripts/group/index.js" asp-append-version="true"></script>
 }
