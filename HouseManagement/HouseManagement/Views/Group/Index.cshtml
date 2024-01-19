@@ -33,7 +33,7 @@
                                     <div class="mb-3">
                                         <div class="row">
                                             <label for="group-name" class="col-5 form-label">Tên nhóm <span class="text-danger">*</span></label>
-                                            <small for="group-name" class="col text-end text-danger">{{ValidateGroupModel.GroupName}}</small>
+                                            <small for="group-name" class="col text-end text-danger" ng-bind="ValidateGroupModel['GroupName']"></small>
                                         </div>
                                         <input type="text" id="group-name" class="form-control" placeholder="Tên nhóm" ng-model="CreateGroupModel.GroupName" ng-change="ValidateGroupName()"/>
                                     </div>
@@ -44,7 +44,7 @@
                                     <div class="mb-3">
                                         <div class="row">
                                             <label for="note" class="col-4 form-label">Ghi chú</label>
-                                            <label for="note" class="col form-label">{{ValidateGroupModel.Note}}</label>
+                                            <small for="note" class="col form-label" ng-bind="ValidateGroupModel['Note']"></small>
                                         </div>
                                         <textarea type="text" id="note" class="form-control" placeholder="Ghi chú" ng-model="CreateGroupModel.Note"></textarea>
                                     </div>

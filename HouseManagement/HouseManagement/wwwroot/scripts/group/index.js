@@ -28,6 +28,7 @@
     }
 
     $scope.ValidateGroupName = function () {
+        $scope.ValidateGroupModel.GroupName = '';
         if (!$scope.CreateGroupModel.GroupName) {
             $scope.ValidateGroupModel.GroupName = 'Không được bỏ trống';
             $scope.DisableCreateButton();
