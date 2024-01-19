@@ -1,4 +1,4 @@
-﻿app.controller('GroupIndexController', function ($scope, $http, $window, $rootScope) {
+﻿app.controller('GroupIndexController', function ($scope, $http, $window, $rootScope, HttpService) {
     $scope.Init = function () {
         $scope.CreateGroupModel = {
             GroupName: null,
@@ -50,19 +50,15 @@
     }
 
     $scope.CreateGroup = function () {
-        $rootScope.IsLoading = true;
-        $http({
-            method: "POST",
-            url: "/Group/Create",
-            data: JSON.stringify($scope.CreateGroupModel)
-        }).then(
-            function successCallback(response) {
-                $rootScope.IsLoading = false;
-                if (response.data.status !== 200) {
+        HttpService.PostData(
+            '/Group/Create',
+            JSON.stringify($scope.CreateGroupModel),
+            function (response) {
+                if (response.status !== 200) {
                     toastMixin.fire({
                         position: "top-right",
                         icon: "error",
-                        title: response.data.message,
+                        title: response.message,
                         showConfirmButton: false,
                         timer: 1500,
                         customClass: {
@@ -84,42 +80,23 @@
                     },
                     buttonsStyling: false,
                 }).then(function () {
-                    $window.location.reload();
-                });
-            },
-            function errorCallback() {
-                $rootScope.IsLoading = false;
-                toastMixin.fire({
-                    position: "top-right",
-                    icon: "error",
-                    title: "Đã xảy ra lỗi, vui lòng thử lại",
-                    showConfirmButton: false,
-                    timer: 1500,
-                    customClass: {
-                        confirmButton: "btn btn-primary"
-                    },
-                    buttonsStyling: false,
+                    document.getElementById('button-dismiss-create-modal').click();
+                    $scope.GetGroup(1);
                 });
             }
         );
     }
 
     $scope.GetGroup = function (pageNumber) {
-        $rootScope.IsLoading = true;
-        $http({
-            method: "POST",
-            url: "/Group/GetForPaging",
-            data: JSON.stringify({
-                PageNumber: pageNumber
-            })
-        }).then(
-            function successCallback(response) {
-                $rootScope.IsLoading = false;
-                if (response.data.status !== 200) {
+        HttpService.PostData(
+            '/Group/GetForPaging',
+            JSON.stringify({pageNumber}),
+            function (response) {
+                if (response.status !== 200) {
                     toastMixin.fire({
                         position: "top-right",
                         icon: "error",
-                        title: response.data.message,
+                        title: response.message,
                         showConfirmButton: false,
                         timer: 1500,
                         customClass: {
@@ -130,34 +107,7 @@
                     return;
                 }
 
-                $scope.Pager = response.data.data;
-                $scope.Pager['fromPage'] = $scope.Pager['page'] - $scope.Pager['pageSize'] >= 1 ? $scope.Pager['page'] - $scope.Pager['pageSize'] : 1;
-                $scope.Pager['toPage'] = $scope.Pager['fromPage'] + $scope.Pager['pageSize'] <= $scope.Pager['totalPage'] ? $scope.Pager['fromPage'] + $scope.Pager['pageSize'] : $scope.Pager['totalPage'];
-                console.log($scope.Pager);
-            },
-            function errorCallback() {
-                $rootScope.IsLoading = false;
-                toastMixin.fire({
-                    position: "top-right",
-                    icon: "error",
-                    title: "Đã xảy ra lỗi, vui lòng thử lại",
-                    showConfirmButton: false,
-                    timer: 1500,
-                    customClass: {
-                        confirmButton: "btn btn-primary"
-                    },
-                    buttonsStyling: false,
-                });
-            }
-        );
+                $scope.Pager = response.data;
+            });
     }
-
-    $scope.Range = function(min, max, step) {
-        step = step || 1;
-        let input = [];
-        for (let i = min; i <= max; i += step) {
-            input.push(i);
-        }
-        return input;
-    };
 });

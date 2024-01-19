@@ -7,7 +7,7 @@
 <div class="content-wrapper" ng-controller="GroupIndexController" ng-init="Init()">
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="card">
-            <div class="row">
+            <div class="row px-2">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 mx-1">Danh sách</h5>
                     <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#modal-create">Tạo mới</button>
@@ -50,7 +50,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    <button type="button" id="button-dismiss-create-modal" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                                         Hủy
                                     </button>
                                     <button type="button" class="btn btn-primary" ng-click="CreateGroup()" ng-disabled="IsDisableCreateButton">Tạo</button>
@@ -67,22 +67,22 @@
                     <tr>
                         <th>Tên nhóm</th>
                         <th class="text-center">Thành viên</th>
-                        <th class="text-center">Trạng thái</th>
                         <th class="text-center">Người tạo</th>
+                        <th class="text-center">Trạng thái</th>
                         <th class="text-center">Thao tác</th>
                     </tr>
                     </thead>
                     <tr ng-repeat="group in Pager['results']">
                         <td>
-                            <i class="fab fa-angular fa-lg text-danger"></i> <strong>{{group['groupName']}}</strong>
+                            <i class="fab fa-angular fa-lg text-danger"></i> <strong ng-bind="group['groupName']"></strong>
                         </td>
                         <td class="text-center">1</td>
                         <td class="text-center">
-                            <span class="badge bg-label-success me-1" ng-if="group['isDeleted'] === false">Đang hoạt động</span>
-                            <span class="badge bg-label-warning me-1" ng-if="group['isDeleted'] === true">Đã xóa</span>
+                            <span class="badge bg-label-primary me-1" ng-bind="group['createdUser'].split('@@')[0]"></span>
                         </td>
                         <td class="text-center">
-                            <span class="badge bg-label-primary me-1">{{group['createdUser']}}</span>
+                            <span class="badge bg-label-success me-1" ng-if="group['isDeleted'] === false">Đang hoạt động</span>
+                            <span class="badge bg-label-warning me-1" ng-if="group['isDeleted'] === true">Đã xóa</span>
                         </td>
                         <td class="text-center">
                             <button type="button" class="btn text-primary">
@@ -103,18 +103,15 @@
                     <ul class="pagination">
                         <li class="page-item prev {{Pager['page'] === 1 ? 'disabled' : ''}}">
                             <a class="page-link" href="javascript:void(0);">
-                                <i class="tf-icon bx bx-chevrons-left"></i>
+                                <i class="tf-icon bx bx-chevrons-left" ng-click="GetGroup(Pager['page']-1)"></i>
                             </a>
                         </li>
-                        <li ng-repeat="page in Range($scope.Pager['fromPage'],$scope.Pager['toPage'] + 1)" class="page-item {{page === $scope.Pager['page'] ? 'active' : ''}}">
-                            <a class="page-link">{{page}}</a>
-                        </li>
-                         <li class="page-item active">
-                            <a class="page-link">1</a>
+                        <li ng-repeat="page in Pager['pageRange']" class="page-item {{page === Pager['page'] ? 'active' : ''}}">
+                            <a class="page-link" ng-click="GetGroup(page)">{{page}}</a>
                         </li>
                         <li class="page-item next {{Pager['page'] === Pager['totalPage'] ? 'disabled' : ''}}">
                             <a class="page-link" href="javascript:void(0);">
-                                <i class="tf-icon bx bx-chevrons-right"></i>
+                                <i class="tf-icon bx bx-chevrons-right" ng-click="GetGroup(Pager['page']+1)"></i>
                             </a>
                         </li>
                     </ul>
@@ -127,5 +124,6 @@
 
 @section Scripts
 {
+    <script src="~/scripts/utility/http.js" asp-append-version="true"></script>
     <script src="~/scripts/group/index.js" asp-append-version="true"></script>
 }
